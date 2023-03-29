@@ -43,12 +43,12 @@ def main():
                 size += len(line.encode('utf-8'))
                
                 if size > size_limit:
-                    output_file = os.path.join(output_dir, f"{output_file_prefix}{file_number}.xml")
+                    output_file = os.path.join(output_dir, f"{output_file_prefix}_{file_number}.xml")
                     with open(output_file, 'w', encoding='utf-8') as out_file:
                         out_file.write(header)
                         write_buffered_lines(out_file, lines_buffer)
                         out_file.write(footer)
-                    print(f"arquivo {file_number}: {output_dir}:{output_file_prefix}{file_number}.xml")
+                    print(f"arquivo {file_number}: {output_dir}:{output_file_prefix}_{file_number}.xml")
 
                     file_number += 1
                     size = 0
@@ -56,12 +56,12 @@ def main():
                     
             # Write the remaining records to a new file if there are any records left in the buffer
         if lines_buffer:
-            output_file = os.path.join(output_dir, f"{output_file_prefix}{file_number}.xml")
+            output_file = os.path.join(output_dir, f"{output_file_prefix}_{file_number}.xml")
             with open(output_file, 'w', encoding='utf-8') as out_file:
                 out_file.write(header)
                 write_buffered_lines(out_file, lines_buffer)
                 #don't need to output the footer, since this is the EOF
-            print(f"arquivo {file_number}: {output_dir}:{output_file_prefix}{file_number}.xml")
+            print(f"arquivo {file_number}: {output_dir}:{output_file_prefix}_{file_number}.xml")
 
 if __name__ == "__main__":
     main()
